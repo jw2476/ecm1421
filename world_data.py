@@ -66,13 +66,18 @@ def get_masked(xs: list[int], ys: list[float]) -> tuple[list[int], list[float]]:
 
 
 def plot(
-    decades: list[int], series1: list[float], series2: list[float], label: str
+    country1: dict[str, str], country2: dict[str, str], label: str
 ) -> None:
-    (s1decades, s1masked) = get_masked(decades, series1)
-    (s2decades, s2masked) = get_masked(decades, series2)
+    series1 = get_series(country1)
+    series2 = get_series(country2)
 
-    plt.plot(s1decades, s1masked)
-    plt.plot(s2decades, s2masked)
+    (s1decades, s1masked) = get_masked(get_decades(), series1)
+    (s2decades, s2masked) = get_masked(get_decades(), series2)
+
+    plt.plot(s1decades, s1masked, label=country1["Country Name"])
+    plt.plot(s2decades, s2masked, label=country2["Country Name"])
+
+    plt.legend(loc="upper left")
 
     plt.xlabel("Year")
     plt.ylabel(label)
@@ -142,9 +147,8 @@ def main():
     ])
 
     plot(
-        get_decades(),
-        get_series(uk_population),
-        get_series(selected_population),
+        uk_population,
+        selected_population,
         "Population (% inc.)",
     )
 
@@ -155,9 +159,8 @@ def main():
     ])
 
     plot(
-        get_decades(),
-        get_series(uk_life_expectany),
-        get_series(selected_life_expectancy),
+        uk_life_expectany,
+        selected_life_expectancy,
         "Life Expectancy (% inc.)",
     )
 
