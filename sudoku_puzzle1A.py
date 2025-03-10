@@ -1,3 +1,13 @@
+def get_filepath() -> str:
+    """
+    Gets the file path from filepath.txt.
+
+    Returns:
+        (str): The base file path.
+    """
+    with open("filepath.txt", "r") as f:
+        return f.read()
+
 def readall(path: str) -> str:
     """
     Reads an entire file.
@@ -8,7 +18,7 @@ def readall(path: str) -> str:
     Returns:
         (str): The contents of the file.
     """
-    with open(path, "r") as f:
+    with open(get_filepath() + path, "r") as f:
         return f.read()
 
 
@@ -127,7 +137,7 @@ def main():
     Gets the user to choose a puzzle, then formats and writes it out to puzzleBlank.txt.
     """
     puzzle_number = choose_puzzle()
-    puzzle_text = readall(f"puzzles/sudoku_grid{puzzle_number:02}.txt")
+    puzzle_text = readall(f"sudoku_grid{puzzle_number:02}.txt")
     puzzle = parse_puzzle(puzzle_text)
     formatted = format_puzzle(puzzle)
     writeall("puzzleBlank.txt", formatted)

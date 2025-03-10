@@ -1,6 +1,14 @@
-from pprint import pprint
 from matplotlib import pyplot as plt
 
+def get_filepath() -> str:
+    """
+    Gets the file path from filepath.txt.
+
+    Returns:
+        (str): The base file path.
+    """
+    with open("filepath.txt", "r") as f:
+        return f.read()
 
 def readall(path: str) -> str:
     """
@@ -12,7 +20,7 @@ def readall(path: str) -> str:
     Returns:
         (str): The contents of the file.
     """
-    with open(path, "r") as f:
+    with open(get_filepath() + path, "r") as f:
         return f.read()
 
 
@@ -225,8 +233,8 @@ def main() -> None:
     """
     Loads both data sets, gets the user to select a country, and then produces graphs and table of results.
     """
-    populations = read_csv("data/World Population data 2024.csv")
-    life_expectancies = read_csv("data/World Life Expectancy.csv")
+    populations = read_csv("World Population data 2024.csv")
+    life_expectancies = read_csv("World Life Expectancy.csv")
 
     uk_population = get_by_country_code(populations, "GBR")
     uk_life_expectany = get_by_country_code(life_expectancies, "GBR")
@@ -259,7 +267,7 @@ def main() -> None:
             selected_life_expectancy = None
 
     write_results(
-        "population_results.csv",
+        "Population.txt",
         [get_decades(), get_series(uk_population), get_series(selected_population)],
     )
 
@@ -270,7 +278,7 @@ def main() -> None:
     )
 
     write_results(
-        "life_expectancy_results.csv",
+        "Life_Expectancy.txt",
         [
             get_decades(),
             get_series(uk_life_expectany),
