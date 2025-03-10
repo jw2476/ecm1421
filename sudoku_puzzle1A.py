@@ -1,15 +1,12 @@
-from pathlib import Path
-from typing import List
-
-def readall(path: Path) -> str:
+def readall(path: str) -> str:
     with open(path, 'r') as f:
         return f.read()
     
-def writeall(path: Path, content: str):
+def writeall(path: str, content: str):
     with open(path, 'w') as f:
         f.write(content)
 
-def parse_puzzle(puzzle: str) -> List[str]:
+def parse_puzzle(puzzle: str) -> list[str]:
     puzzle = ''.join(puzzle.split('\n')[1:]) # discard first line
 
     parsed = []
@@ -18,13 +15,13 @@ def parse_puzzle(puzzle: str) -> List[str]:
 
     return parsed
 
-def fmt_tri(input: List[str]) -> str:
+def fmt_tri(input: list[str]) -> str:
     return f" {input[0]} {input[1]} {input[2]} "
 
-def format_row(input: List[str]) -> str:
+def format_row(input: list[str]) -> str:
     return f" |{fmt_tri(input[0:3])}|{fmt_tri(input[3:6])}|{fmt_tri(input[6:9])}|"
 
-def format_puzzle(puzzle: List[str]) -> str:
+def format_puzzle(puzzle: list[str]) -> str:
     SEPARATOR: str = "--------------------------"
     
     output = [
