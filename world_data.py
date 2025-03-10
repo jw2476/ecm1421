@@ -240,10 +240,12 @@ def main() -> None:
         code = input("Enter country code: ").upper()
         selected_population = get_by_country_code(populations, code)
         selected_life_expectancy = get_by_country_code(life_expectancies, code)
+
         if None in (selected_population, selected_life_expectancy):
             print("Sorry, there is no such country in the data")
             continue
 
+        # Check count of non-None samples
         population_samples = [
             data for data in get_series(selected_population) if data is not None
         ]
