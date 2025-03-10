@@ -43,7 +43,7 @@ def parse_puzzle(puzzle: str) -> list[str]:
     return parsed
 
 
-def fmt_tri(input: list[str]) -> str:
+def format_tri(input: list[str]) -> str:
     """
     Formats 3 numbers from the input.
 
@@ -66,7 +66,9 @@ def format_row(input: list[str]) -> str:
     Returns:
         str: The formatted string.
     """
-    return f" |{fmt_tri(input[0:3])}|{fmt_tri(input[3:6])}|{fmt_tri(input[6:9])}|"
+    return (
+        f" |{format_tri(input[0:3])}|{format_tri(input[3:6])}|{format_tri(input[6:9])}|"
+    )
 
 
 def format_puzzle(puzzle: list[str]) -> str:

@@ -74,7 +74,7 @@ def hjoin(blocks: list[list[str]]) -> list[str]:
     return output
 
 
-def fmt_number(input: str, number: str) -> str:
+def format_number(input: str, number: str) -> str:
     """
     Formats a number in a square.
 
@@ -91,7 +91,7 @@ def fmt_number(input: str, number: str) -> str:
     return " "
 
 
-def fmt_square(input: str) -> list[str]:
+def format_square(input: str) -> list[str]:
     """
     Formats a square from the input.
 
@@ -101,7 +101,7 @@ def fmt_square(input: str) -> list[str]:
     Returns:
         list[str]: The formatted lines.
     """
-    numbers = [fmt_number(input, str(number)) for number in range(1, 10)]
+    numbers = [format_number(input, str(number)) for number in range(1, 10)]
     return [
         " ".join(numbers[0:3]),
         " ".join(numbers[3:6]),
@@ -109,7 +109,7 @@ def fmt_square(input: str) -> list[str]:
     ]
 
 
-def fmt_tri(input: list[str]) -> list[str]:
+def format_tri(input: list[str]) -> list[str]:
     """
     Formats 3 numbers from the input.
 
@@ -122,11 +122,11 @@ def fmt_tri(input: list[str]) -> list[str]:
     separator = [" | "] * 3
     return hjoin(
         [
-            fmt_square(input[0]),
+            format_square(input[0]),
             separator,
-            fmt_square(input[1]),
+            format_square(input[1]),
             separator,
-            fmt_square(input[2]),
+            format_square(input[2]),
         ]
     )
 
@@ -144,11 +144,11 @@ def format_row(input: list[str]) -> list[str]:
     return hjoin(
         [
             ["|| "] * 3,
-            fmt_tri(input[0:3]),
+            format_tri(input[0:3]),
             [" || "] * 3,
-            fmt_tri(input[3:6]),
+            format_tri(input[3:6]),
             [" || "] * 3,
-            fmt_tri(input[6:9]),
+            format_tri(input[6:9]),
             [" ||"] * 3,
         ]
     )
