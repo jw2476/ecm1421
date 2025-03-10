@@ -71,7 +71,7 @@ def read_csv(path: str) -> list[dict[str, str]]:
     entries: list[dict[str, str]] = []
     for row in rows[1:]:
         entry: dict[str, str] = {}
-        for header, data in zip(rows[0], row):
+        for header, data in zip(rows[0], row):  # First row is column headers
             entry[header] = data
 
         entries.append(entry)
@@ -227,6 +227,7 @@ def main() -> None:
     """
     populations = read_csv("data/World Population data 2024.csv")
     life_expectancies = read_csv("data/World Life Expectancy.csv")
+
     uk_population = get_by_country_code(populations, "GBR")
     uk_life_expectany = get_by_country_code(life_expectancies, "GBR")
     if uk_population is None or uk_life_expectany is None:
@@ -235,7 +236,6 @@ def main() -> None:
 
     selected_population = None
     selected_life_expectancy = None
-    code = None
     while selected_population is None or selected_life_expectancy is None:
         code = input("Enter country code: ").upper()
         selected_population = get_by_country_code(populations, code)
@@ -244,19 +244,17 @@ def main() -> None:
             print("Sorry, there is no such country in the data")
             continue
 
-        if (
-            len(
-                [
-                    data
-                    for data in get_series(selected_population)
-                    + get_series(selected_life_expectancy)
-                    if data is not None
-                ]
-            )
-            == 0
-        ):
+        population_samples = [
+            data for data in get_series(selected_population) if data is not None
+        ]
+        life_expectancy_samples = [
+            data for data in get_series(selected_life_expectancy) if data is not None
+        ]
+
+        if len(population_samples) == 0 or len(life_expectancy_samples) == 0:
             print("Sorry there is no data for this country")
-            country = None
+            selected_population = None
+            selected_life_expectancy = None
 
     write_results(
         "population_results.csv",
